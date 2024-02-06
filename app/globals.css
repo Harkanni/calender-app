@@ -44,3 +44,9 @@ body {
   padding: 2rem; /* Adjust padding as needed */
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Adjust values as needed */
 }
+
+.session-wrapper {
+  border: 0px solid #ccc; /* Adjust color and size as needed */
+  padding: 1rem; /* Adjust padding as needed */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Adjust values as needed */
+}

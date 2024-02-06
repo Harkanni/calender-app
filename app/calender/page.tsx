@@ -10,6 +10,9 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { TimePicker } from '@mui/x-date-pickers/TimePicker';
 import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
+import Session from '@/components/SessionWrapper';
+import SessionWrapper from '@/components/SessionWrapper';
+import Spacer from '@/components/Spacer';
 // import { DateRangePicker } from '@mui/x-date-pickers-pro/DateRangePicker';
 
 const ProSpan = styled('span')({
@@ -28,8 +31,11 @@ export default function CommonlyUsedComponents() {
    return (
       <LocalizationProvider dateAdapter={AdapterDayjs}>
          <div className={`form-container min-w-[70vw] min-h-[70vh] m-auto bg-white rounded-md`}>
-            <DatePicker label="Basic date picker" />
-            <TimePicker label="Basic time picker" />
+            <SessionWrapper>
+               <DatePicker label="Basic date picker" className='flex-1'/>
+               <Spacer />
+               <TimePicker label="Basic time picker" className='flex-1' />
+            </SessionWrapper>
          </div>
       </LocalizationProvider>
    );
