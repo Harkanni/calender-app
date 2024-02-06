@@ -13,9 +13,11 @@ import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
 import Session from '@/components/SessionWrapper';
 import SessionWrapper from '@/components/SessionWrapper';
 import Spacer from '@/components/Spacer';
-import { FormControl, InputLabel, MenuItem, Select, SelectChangeEvent, TextField } from '@mui/material';
+import { Button, FormControl, InputLabel, MenuItem, Select, SelectChangeEvent, TextField } from '@mui/material';
 // import { DateRangePicker } from '@mui/x-date-pickers-pro/DateRangePicker';
 
+
+import SendIcon from '@mui/icons-material/Send';
 import { dogBreeds } from '@/constants/dogBreeds';
 
 // const dogBreed = ['dogBreed', 'dogBreed', 'dogBreed', 'dogBreed', 'dogBreed']
@@ -71,7 +73,10 @@ export default function CommonlyUsedComponents() {
                   fullWidth
                />
             </SessionWrapper>
-            <button>Done</button>
+
+            <Button fullWidth={false} className='text-black text-bold' variant="contained" endIcon={<SendIcon />}>
+               Schedule
+            </Button>
          </div>
       </LocalizationProvider>
    );
