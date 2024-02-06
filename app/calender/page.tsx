@@ -13,12 +13,20 @@ import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
 import Session from '@/components/SessionWrapper';
 import SessionWrapper from '@/components/SessionWrapper';
 import Spacer from '@/components/Spacer';
-import { FormControl, InputLabel, MenuItem, Select, TextField } from '@mui/material';
+import { FormControl, InputLabel, MenuItem, Select, SelectChangeEvent, TextField } from '@mui/material';
 // import { DateRangePicker } from '@mui/x-date-pickers-pro/DateRangePicker';
 
-const dogBreed = ['dogBreed', 'dogBreed', 'dogBreed', 'dogBreed', 'dogBreed']
+import { dogBreeds } from '@/constants/dogBreeds';
+
+// const dogBreed = ['dogBreed', 'dogBreed', 'dogBreed', 'dogBreed', 'dogBreed']
 
 export default function CommonlyUsedComponents() {
+   const [breed, setDogBreed] = React.useState('')
+
+   const handleSetDogBreed = (event: SelectChangeEvent) => {
+      console.log(event)
+      setDogBreed(event.target.value);
+   };
    return (
       <LocalizationProvider dateAdapter={AdapterDayjs}>
          <div className={`form-container flex flex-col gap-4 min-w-[70vw] min-h-[70vh] m-auto bg-white rounded-md`}>
@@ -36,22 +44,34 @@ export default function CommonlyUsedComponents() {
 
             <SessionWrapper>
                <FormControl fullWidth>
-                  <InputLabel id="demo-simple-select-label">Age</InputLabel>
+                  <InputLabel id="demo-simple-select-label">Select Dog Breed 🐶</InputLabel>
                   <Select
                      labelId="demo-simple-select-label"
                      id="demo-simple-select"
-                     // value={age}
-                     label="Age"
-                     // onChange={handleChange}
+                     value={breed}
+                     label="Select Dog Breed 🐶"
+                     onChange={(event) => handleSetDogBreed(event)}
                   >
-                     {dogBreed.map((dogBreed: string) => {
+                     {dogBreeds.map((dogBreed: string) => {
                         return (
-                           <MenuItem value={10}>{dogBreed}</MenuItem>
+                           <MenuItem value={dogBreed}>{dogBreed}</MenuItem>
                         )
                      })}
                   </Select>
                </FormControl>
             </SessionWrapper>
+
+            <SessionWrapper>
+               <TextField
+                  id="outlined-multiline-flexible"
+                  label="Address"
+                  multiline
+                  maxRows={4}
+                  minRows={4}
+                  fullWidth
+               />
+            </SessionWrapper>
+            <button>Done</button>
          </div>
       </LocalizationProvider>
    );
