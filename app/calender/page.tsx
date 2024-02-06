@@ -13,28 +13,44 @@ import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
 import Session from '@/components/SessionWrapper';
 import SessionWrapper from '@/components/SessionWrapper';
 import Spacer from '@/components/Spacer';
+import { FormControl, InputLabel, MenuItem, Select, TextField } from '@mui/material';
 // import { DateRangePicker } from '@mui/x-date-pickers-pro/DateRangePicker';
 
-const ProSpan = styled('span')({
-   display: 'inline-block',
-   height: '1em',
-   width: '1em',
-   verticalAlign: 'middle',
-   marginLeft: '0.3em',
-   marginBottom: '0.08em',
-   backgroundSize: 'contain',
-   backgroundRepeat: 'no-repeat',
-   backgroundImage: 'url(https://mui.com/static/x/pro.svg)',
-});
+const dogBreed = ['dogBreed', 'dogBreed', 'dogBreed', 'dogBreed', 'dogBreed']
 
 export default function CommonlyUsedComponents() {
    return (
       <LocalizationProvider dateAdapter={AdapterDayjs}>
-         <div className={`form-container min-w-[70vw] min-h-[70vh] m-auto bg-white rounded-md`}>
+         <div className={`form-container flex flex-col gap-4 min-w-[70vw] min-h-[70vh] m-auto bg-white rounded-md`}>
             <SessionWrapper>
-               <DatePicker label="Basic date picker" className='flex-1'/>
+               <DatePicker label="Session day" className='flex-1' />
                <Spacer />
-               <TimePicker label="Basic time picker" className='flex-1' />
+               <TimePicker label="Start time" className='flex-1' />
+            </SessionWrapper>
+
+            <SessionWrapper>
+               <TextField id="outlined-basic" label="First name" variant="outlined" className='flex-1' />
+               <Spacer />
+               <TextField id="outlined-basic" label="Last name" variant="outlined" className='flex-1' />
+            </SessionWrapper>
+
+            <SessionWrapper>
+               <FormControl fullWidth>
+                  <InputLabel id="demo-simple-select-label">Age</InputLabel>
+                  <Select
+                     labelId="demo-simple-select-label"
+                     id="demo-simple-select"
+                     // value={age}
+                     label="Age"
+                     // onChange={handleChange}
+                  >
+                     {dogBreed.map((dogBreed: string) => {
+                        return (
+                           <MenuItem value={10}>{dogBreed}</MenuItem>
+                        )
+                     })}
+                  </Select>
+               </FormControl>
             </SessionWrapper>
          </div>
       </LocalizationProvider>
