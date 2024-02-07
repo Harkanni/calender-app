@@ -1,13 +1,38 @@
 import React from 'react'
+import MarkIcon from '@mui/icons-material/MarkAsUnread';
+import {logo} from '@/assets/index'
+import Image from 'next/image';
 
-const Summary = () => {
+interface Props {
+   setModal: any,
+   user: {
+      firstName: string,
+      lastName: string
+   },
+   breed: string,
+}
+
+const Summary = ({setModal, user, breed} : Props) => {
+   const handleCloseModal = () => {
+      setModal(false)
+   }
+   
    return (
-      <div className={`summaryContainer flex justify-center items-center`}>
+      <div className={`summaryContainer flex justify-center items-center`} onClick={handleCloseModal}>
          <div className={`summary rounded-lg flex flex-col justify-center items-center`}>
-            <div className='flex flex-col gap-4'>
+            <div>
+               <Image
+                  src={logo}
+                  alt='logo'
+                  width={250}
+                  height={124}
+               />
+            </div>
+            <div className='text-lg font-bold'>Session scheduled successful!</div>
+            <div className='flex flex-col gap-4 mt-3'>
                <div className='flex gap-12'>
-                  <p className='flex-1'>Full Name:</p>
-                  <h2>Adeleke David</h2>
+                  <p className='flex-1 text'>Full Name:</p>
+                  <h2>{`${user.firstName} ${user.lastName}`}</h2>
                </div>
                <div className='flex gap-12'>
                   <p className='flex-1'>No. of sessions:</p>
