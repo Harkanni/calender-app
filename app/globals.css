@@ -44,7 +44,7 @@ body {
   border: 1px solid #ccc; /* Adjust color and size as needed */
   padding: 2rem; /* Adjust padding as needed */
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Adjust values as needed */
-   filter: blur(2px);
+  filter: blur(2px);
 }
 
 .session-wrapper777777 {
@@ -62,5 +62,9 @@ body {
   /* backdrop-filter: blur(60px) !important; */
 }
 .summary {
-   /* backdrop-filter: blur(10px); */
+  background: white;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Adjust values as needed */
+  min-height: 50vh;
+  min-width: 50vw;
+  padding: 2rem;
 }
