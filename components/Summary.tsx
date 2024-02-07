@@ -1,7 +1,8 @@
 import React from 'react'
 import MarkIcon from '@mui/icons-material/MarkAsUnread';
-import {logo} from '@/assets/index'
+import { logo } from '@/assets/index'
 import Image from 'next/image';
+import LoadingScreen from './loadingScreen';
 
 interface Props {
    setModal: any,
@@ -9,14 +10,17 @@ interface Props {
       firstName: string,
       lastName: string
    },
-   breed: string,
+   dogBreed: string,
+   sessionCount: number,
+   loading: boolean,
+   setLoading: (loading: boolean) => void
 }
 
-const Summary = ({setModal, user, breed} : Props) => {
+const Summary = ({ setModal, user, dogBreed, sessionCount, loading, setLoading }: Props) => {
    const handleCloseModal = () => {
       setModal(false)
    }
-   
+
    return (
       <div className={`summaryContainer flex justify-center items-center`} onClick={handleCloseModal}>
          <div className={`summary rounded-lg flex flex-col justify-center items-center`}>
@@ -28,7 +32,9 @@ const Summary = ({setModal, user, breed} : Props) => {
                   height={124}
                />
             </div>
+
             <div className='text-lg font-bold'>Session scheduled successful!</div>
+
             <div className='flex flex-col gap-4 mt-3'>
                <div className='flex gap-12'>
                   <p className='flex-1 text'>Full Name:</p>
@@ -36,17 +42,20 @@ const Summary = ({setModal, user, breed} : Props) => {
                </div>
                <div className='flex gap-12'>
                   <p className='flex-1'>No. of sessions:</p>
-                  <h2>3 sessions</h2>
+                  <h2>{`${sessionCount} session${sessionCount > 1 ? 's' : ''}`}</h2>
                </div>
                <div className='flex gap-12'>
                   <p className='flex-1'>Breed:</p>
-                  <h2>Golden Retriever</h2>
+                  <h2>{dogBreed}</h2>
                </div>
                <div className='flex gap-12'>
                   <p className='flex-1'>Start Date:</p>
                   <h2>Tuesday, 9:00am, 2024</h2>
                </div>
             </div>
+
+            {loading && <LoadingScreen color='black' type='bars' />}
+
          </div>
       </div>
    )

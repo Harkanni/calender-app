@@ -26,7 +26,7 @@ import Summary from '@/components/Summary';
 
 export default function CommonlyUsedComponents() {
    const [sessionCount, setSessionCount] = React.useState(1);
-   const [user, setUser] = React.useState({ firstName: '', lastName: '' });
+   const [user, setUser] = React.useState({ firstName: '', lastName: '', address: '' });
    const [breed, setDogBreed] = React.useState('')
 
    const [loading, setLoading] = React.useState(false);
@@ -107,6 +107,9 @@ export default function CommonlyUsedComponents() {
                      maxRows={4}
                      minRows={4}
                      fullWidth
+                     name='address'
+                     value={user.address}
+                     onChange={handleNameChange}
                   />
                </SessionWrapper>
 
@@ -117,7 +120,7 @@ export default function CommonlyUsedComponents() {
 
             </div>
             {
-               modal && <Summary setModal={setModal} user={user} dogBreed={breed} />
+               modal && <Summary setModal={setModal} user={user} dogBreed={breed} sessionCount={sessionCount} loading setLoading={setLoading} />
             }
 
          </LocalizationProvider>
