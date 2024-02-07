@@ -17,26 +17,49 @@ import { Button, FormControl, InputLabel, MenuItem, Select, SelectChangeEvent, T
 // import { DateRangePicker } from '@mui/x-date-pickers-pro/DateRangePicker';
 
 
-import SendIcon from '@mui/icons-material/Send';
+import SendIcon from '@mui/icons-material/Send'
+import AddIcon from '@mui/icons-material/AddCircleRounded';
 import { dogBreeds } from '@/constants/dogBreeds';
 
 // const dogBreed = ['dogBreed', 'dogBreed', 'dogBreed', 'dogBreed', 'dogBreed']
 
 export default function CommonlyUsedComponents() {
+   const [sessionCount, setSessionCount] = React.useState(1);
    const [breed, setDogBreed] = React.useState('')
+
+   const [loading, setLoading] = React.useState(false);
+
+   const addSession = () => {
+      setSessionCount(sessionCount + 1);
+   };
 
    const handleSetDogBreed = (event: SelectChangeEvent) => {
       console.log(event)
       setDogBreed(event.target.value);
    };
+
+   const handleSchedule = () => {
+      console.log('schedule created');
+   }
+
    return (
       <LocalizationProvider dateAdapter={AdapterDayjs}>
          <div className={`form-container flex flex-col gap-4 min-w-[70vw] min-h-[70vh] m-auto bg-white rounded-md`}>
-            <SessionWrapper>
-               <DatePicker label="Session day" className='flex-1' />
-               <Spacer />
-               <TimePicker label="Start time" className='flex-1' />
-            </SessionWrapper>
+            {
+               [...Array(sessionCount)].map((_, index) => {
+                  console.log(index)
+                  return (
+                     <SessionWrapper key={`${index} session`}>
+                        <DatePicker label="Session day" className='flex-1' />
+                        <Spacer />
+                        <TimePicker label="Start time" className='flex-1' />
+                        <Button className='hover:bg-slate-500 flex justify-center' variant="contained" onClick={addSession}>
+                           <AddIcon color='action' />
+                        </Button>
+                     </SessionWrapper>
+                  )
+               })
+            }
 
             <SessionWrapper>
                <TextField id="outlined-basic" label="First name" variant="outlined" className='flex-1' />
@@ -74,9 +97,11 @@ export default function CommonlyUsedComponents() {
                />
             </SessionWrapper>
 
-            <Button fullWidth={false} className='text-black text-bold' variant="contained" endIcon={<SendIcon />}>
+            <Button className='text-black text-bold p-4 w-[40%] hover:bg-slate-500' variant="contained" endIcon={<SendIcon />} onClick={handleSchedule}>
                Schedule
             </Button>
+
+
          </div>
       </LocalizationProvider>
    );
