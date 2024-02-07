@@ -20,6 +20,7 @@ import { Button, FormControl, InputLabel, MenuItem, Select, SelectChangeEvent, T
 import SendIcon from '@mui/icons-material/Send'
 import AddIcon from '@mui/icons-material/AddCircleRounded';
 import { dogBreeds } from '@/constants/dogBreeds';
+import Summary from '@/components/Summary';
 
 // const dogBreed = ['dogBreed', 'dogBreed', 'dogBreed', 'dogBreed', 'dogBreed']
 
@@ -103,6 +104,8 @@ export default function CommonlyUsedComponents() {
 
 
          </div>
+
+         <Summary />
       </LocalizationProvider>
    );
 }
