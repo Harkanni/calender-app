@@ -43,12 +43,13 @@ export default function CommonlyUsedComponents() {
          setTimeout(resolve, time);
       });
 
-   const addSession = () => {
+   const addSession = (index: any) => {
+      console.log('addSession index: ', index)
       setSessionCount(sessionCount + 1);
    };
 
    const handleSetDogBreed = (event: SelectChangeEvent) => {
-      console.log(event)
+      // console.log(event)
       setDogBreed(event.target.value);
    };
 
@@ -87,13 +88,13 @@ export default function CommonlyUsedComponents() {
             <div className={`${(loading || modal) && 'blurBg'} form-container flex flex-col gap-4 min-w-[70vw] min-h-[70vh] m-auto bg-white rounded-md`}>
                {
                   [...Array(sessionCount)].map((_, index) => {
-                     console.log(index)
+                     // console.log(index)
                      return (
-                        <SessionWrapper key={`${index} session`}>
-                           <DatePicker label="Session day" className='flex-1' value={date} onChange={(date: any) => handleDateChange(date)} name={`session-${index}`} />
+                        <SessionWrapper key={`${index} session`} id={index}>
+                           <DatePicker localeText={{clockLabelText: () => ''}} disablePast format='ddd, MMMM Do YYYY' label="Session day" className='flex-1' onChange={(date: any) => handleDateChange(date)} name={`session-${index}`} />
                            <Spacer />
                            <TimePicker label="Start time" className='flex-1' />
-                           <Button className='hover:bg-slate-500 flex justify-center' variant="contained" onClick={addSession}>
+                           <Button className='hover:bg-slate-500 flex justify-center' variant="contained" onClick={() => addSession(index)}>
                               <AddIcon color='action' />
                            </Button>
                         </SessionWrapper>
