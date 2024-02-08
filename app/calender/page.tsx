@@ -5,7 +5,7 @@ import { styled } from '@mui/material/styles';
 import Tooltip from '@mui/material/Tooltip';
 import Stack from '@mui/material/Stack';
 import { DemoContainer, DemoItem } from '@mui/x-date-pickers/internals/demo';
-import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { AdapterMoment } from '@mui/x-date-pickers/AdapterMoment';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { TimePicker } from '@mui/x-date-pickers/TimePicker';
@@ -21,12 +21,15 @@ import SendIcon from '@mui/icons-material/Send'
 import AddIcon from '@mui/icons-material/AddCircleRounded';
 import { dogBreeds } from '@/constants/dogBreeds';
 import Summary from '@/components/Summary';
+import dayjs, { Dayjs } from 'dayjs';
+import moment from 'moment';
 
 // const dogBreed = ['dogBreed', 'dogBreed', 'dogBreed', 'dogBreed', 'dogBreed']
 
 export default function CommonlyUsedComponents() {
    const [sessionCount, setSessionCount] = React.useState(1);
-   const [user, setUser] = React.useState({ firstName: '', lastName: '', address: '' });
+   const [date, setDate] = React.useState<any | null>(null);
+   const [user, setUser] = React.useState({ firstName: '', lastName: '', address: '', 'session-1': '' });
    const [breed, setDogBreed] = React.useState('')
 
    const [loading, setLoading] = React.useState(false);
@@ -35,9 +38,9 @@ export default function CommonlyUsedComponents() {
 
 
 
-   const pause = () =>
+   const pause = (time: number) =>
       new Promise((resolve) => {
-         setTimeout(resolve, 5000);
+         setTimeout(resolve, time);
       });
 
    const addSession = () => {
@@ -53,11 +56,15 @@ export default function CommonlyUsedComponents() {
       console.log('schedule creation started');
 
       setLoading(true)
-      
-      await pause();
-      
+
+      await pause(5000);
+
       setLoading(false);
-      
+
+      // await pause(1);
+
+      setModal(true);
+
       console.log('schedule created');
    }
 
@@ -69,16 +76,21 @@ export default function CommonlyUsedComponents() {
       }));
    }
 
+   const handleDateChange = (date:any) => {
+      const selectedDate = moment(date).format('MMMM Do YYYY,')
+      setDate(date);
+   }
+
    return (
       <UserContext.Provider value={[]}>
-         <LocalizationProvider dateAdapter={AdapterDayjs}>
-            <div className={`${modal && 'blurBg'} form-container flex flex-col gap-4 min-w-[70vw] min-h-[70vh] m-auto bg-white rounded-md`}>
+         <LocalizationProvider dateAdapter={AdapterMoment}>
+            <div className={`${(loading || modal) && 'blurBg'} form-container flex flex-col gap-4 min-w-[70vw] min-h-[70vh] m-auto bg-white rounded-md`}>
                {
                   [...Array(sessionCount)].map((_, index) => {
                      console.log(index)
                      return (
                         <SessionWrapper key={`${index} session`}>
-                           <DatePicker label="Session day" className='flex-1' />
+                           <DatePicker label="Session day" className='flex-1' value={date} onChange={(date: any) => handleDateChange(date)} name={`session-${index}`} />
                            <Spacer />
                            <TimePicker label="Start time" className='flex-1' />
                            <Button className='hover:bg-slate-500 flex justify-center' variant="contained" onClick={addSession}>
@@ -135,7 +147,7 @@ export default function CommonlyUsedComponents() {
 
             </div>
             {
-               loading && <Summary setModal={setModal} user={user} dogBreed={breed} sessionCount={sessionCount} loading setLoading={setLoading} />
+               (loading || modal) && <Summary setModal={setModal} user={user} dogBreed={breed} sessionCount={sessionCount} loading={loading} setLoading={setLoading} />
             }
 
          </LocalizationProvider>

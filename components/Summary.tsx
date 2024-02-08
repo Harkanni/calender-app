@@ -16,6 +16,42 @@ interface Props {
    setLoading: (loading: boolean) => void
 }
 
+const MiniComponent = ({ setModal, user, dogBreed, sessionCount, loading, setLoading }: Props) => {
+   return (
+      <>
+         <div>
+            <Image
+               src={logo}
+               alt='logo'
+               width={250}
+               height={124}
+            />
+         </div>
+
+         <div className='text-lg font-bold'>Session scheduled successful!</div>
+
+         <div className='flex flex-col gap-4 mt-3'>
+            <div className='flex gap-12'>
+               <p className='flex-1 text'>Full Name:</p>
+               <h2>{`${user.firstName} ${user.lastName}`}</h2>
+            </div>
+            <div className='flex gap-12'>
+               <p className='flex-1'>No. of sessions:</p>
+               <h2>{`${sessionCount} session${sessionCount > 1 ? 's' : ''}`}</h2>
+            </div>
+            <div className='flex gap-12'>
+               <p className='flex-1'>Dog Breed:</p>
+               <h2>{dogBreed}</h2>
+            </div>
+            <div className='flex gap-12'>
+               <p className='flex-1'>Start Date:</p>
+               <h2>Tuesday, 9:00am, 2024</h2>
+            </div>
+         </div>
+      </>
+   )
+}
+
 const Summary = ({ setModal, user, dogBreed, sessionCount, loading, setLoading }: Props) => {
    const handleCloseModal = () => {
       setModal(false)
@@ -25,37 +61,12 @@ const Summary = ({ setModal, user, dogBreed, sessionCount, loading, setLoading }
    return (
       <div className={`summaryContainer flex justify-center items-center`} onClick={handleCloseModal}>
          <div className={`summary rounded-lg flex flex-col justify-center items-center`}>
-            <div>
-               <Image
-                  src={logo}
-                  alt='logo'
-                  width={250}
-                  height={124}
-               />
-            </div>
+            {
+               loading ? <LoadingScreen color='black' type='bars' /> : <MiniComponent setModal={setModal} user={user} dogBreed={dogBreed} sessionCount={sessionCount} loading setLoading={setLoading} />
+            }
 
-            <div className='text-lg font-bold'>Session scheduled successful!</div>
 
-            <div className='flex flex-col gap-4 mt-3'>
-               <div className='flex gap-12'>
-                  <p className='flex-1 text'>Full Name:</p>
-                  <h2>{`${user.firstName} ${user.lastName}`}</h2>
-               </div>
-               <div className='flex gap-12'>
-                  <p className='flex-1'>No. of sessions:</p>
-                  <h2>{`${sessionCount} session${sessionCount > 1 ? 's' : ''}`}</h2>
-               </div>
-               <div className='flex gap-12'>
-                  <p className='flex-1'>Breed:</p>
-                  <h2>{dogBreed}</h2>
-               </div>
-               <div className='flex gap-12'>
-                  <p className='flex-1'>Start Date:</p>
-                  <h2>Tuesday, 9:00am, 2024</h2>
-               </div>
-            </div>
-
-            {loading && <LoadingScreen color='black' type='bars' />}
+            {/* {loading && <LoadingScreen color='black' type='bars' />} */}
 
          </div>
       </div>
