@@ -19,6 +19,7 @@ interface Props {
 const Summary = ({ setModal, user, dogBreed, sessionCount, loading, setLoading }: Props) => {
    const handleCloseModal = () => {
       setModal(false)
+      setLoading(false)
    }
 
    return (

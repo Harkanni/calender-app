@@ -32,6 +32,14 @@ export default function CommonlyUsedComponents() {
    const [loading, setLoading] = React.useState(false);
    const [modal, setModal] = React.useState(false);
 
+
+
+
+   const pause = () =>
+      new Promise((resolve) => {
+         setTimeout(resolve, 5000);
+      });
+
    const addSession = () => {
       setSessionCount(sessionCount + 1);
    };
@@ -41,12 +49,19 @@ export default function CommonlyUsedComponents() {
       setDogBreed(event.target.value);
    };
 
-   const handleSchedule = () => {
+   const handleSchedule = async () => {
+      console.log('schedule creation started');
+
+      setLoading(true)
+      
+      await pause();
+      
+      setLoading(false);
+      
       console.log('schedule created');
-      setModal(true)
    }
 
-   const handleNameChange = (event:any) => {
+   const handleNameChange = (event: any) => {
       const { name, value } = event.target;
       setUser((prevData) => ({
          ...prevData,
@@ -120,7 +135,7 @@ export default function CommonlyUsedComponents() {
 
             </div>
             {
-               modal && <Summary setModal={setModal} user={user} dogBreed={breed} sessionCount={sessionCount} loading setLoading={setLoading} />
+               loading && <Summary setModal={setModal} user={user} dogBreed={breed} sessionCount={sessionCount} loading setLoading={setLoading} />
             }
 
          </LocalizationProvider>
