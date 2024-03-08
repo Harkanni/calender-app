@@ -29,13 +29,14 @@ import moment from 'moment';
 export default function CommonlyUsedComponents() {
    const [sessionCount, setSessionCount] = React.useState(1);
    const [date, setDate] = React.useState<any | null>(null);
+   const [time, setTime] = React.useState<any | null>(null);
    const [user, setUser] = React.useState({ firstName: '', lastName: '', address: '', 'session-1': '' });
    const [breed, setDogBreed] = React.useState('')
 
    const [loading, setLoading] = React.useState(false);
    const [modal, setModal] = React.useState(false);
 
-   const [sessionData, setSessionData] = React.useState([]);
+   const [sessionData, setSessionData] = React.useState<any>([{ time: '', date: '' }]);
    const [sessionState, setSessionState] = React.useState({ time: '', date: '' });
 
 
@@ -49,6 +50,11 @@ export default function CommonlyUsedComponents() {
    const addSession = (index: any) => {
       console.log('addSession index: ', index)
       setSessionCount(sessionCount + 1);
+      console.log('This is time: ', sessionState.time, 'This is date : ', sessionState.date, 'This is session : ', sessionState)
+      let state = [...sessionData, sessionState]
+      setSessionData([...state])
+      setSessionState({ time: '', date: ''})
+      console.log('state: ', state)
    };
 
    const handleSetDogBreed = (event: SelectChangeEvent) => {
@@ -70,6 +76,7 @@ export default function CommonlyUsedComponents() {
       setModal(true);
 
       console.log('schedule created');
+      console.log(sessionData)
    }
 
    const handleNameChange = (event: any) => {
@@ -80,17 +87,44 @@ export default function CommonlyUsedComponents() {
       }));
    }
 
-   const handleDateChange = (date: any, id: number) => {
-      const selectedDate = moment(date).format('MMMM Do YYYY,')
-      setDate(date);
-      console.log('This is the Index: ', id);
-   }
+   const handleDateChange = (date:any, id:any) => {
+      console.log(id, moment(date).format('ddd. MMMM Do, YYYY'));
+      
+      // Update sessionState
+      const updatedSessionState = { ...sessionState, date: moment(date).format('ddd. MMMM Do, YYYY') };
+      setSessionState(updatedSessionState);
+    
+      // IF UPDATING SESSION DATA
+      if (sessionData[id]) {
+        // Update the specific session in the sessionData array
+        const updatedSessionData = sessionData.map((session:any, index:any) =>
+          index === id ? { ...session, date: moment(date).format('ddd. MMMM Do, YYYY') } : session
+        );
+    
+        console.log("This is edited session: ", updatedSessionData[id]);
+        setSessionData(updatedSessionData);
+      }
+    };
 
-   const handleTimeChange = (date: any, id: number) => {
-      const selectedDate = moment(date).format('MMMM Do YYYY,')
-      setDate(date);
-      console.log('This is the Index: ', id);
-   }
+   const handleTimeChange = (time:any, id:any) => {
+      console.log(id, moment(time).format('HH:mm a'));
+      
+      // Update sessionState
+      const updatedSessionState = { ...sessionState, time: moment(time).format('HH:mm a') };
+      setSessionState(updatedSessionState);
+    
+      // IF UPDATING SESSION DATA
+      if (sessionData[id]) {
+        // Update the specific session in the sessionData array
+        const updatedSessionData = sessionData.map((session:any, index:any) =>
+          index === id ? { ...session, time: moment(time).format('HH:mm a') } : session
+        );
+    
+        console.log("This is edited session: ", updatedSessionData[id]);
+        setSessionData(updatedSessionData);
+      }
+    };
+    
 
    return (
       <UserContext.Provider value={[]}>
@@ -101,9 +135,9 @@ export default function CommonlyUsedComponents() {
                      // console.log(index)
                      return (
                         <SessionWrapper key={`${index} session`} id={index}>
-                           <DatePicker localeText={{ clockLabelText: () => '' }} disablePast format='ddd. MMMM Do, YYYY' label="Session day" className='flex-1' onChange={(date: any, id) => handleDateChange(date, index)} name={`session-${index}`} />
+                           <DatePicker localeText={{ clockLabelText: () => '' }} disablePast format='ddd. MMMM Do, YYYY' label="Session day" className='flex-1' value={date} onChange={(date: any, id) => handleDateChange(date, index)} name={'date'} />
                            <Spacer />
-                           <TimePicker label="Start time" className='flex-1' onChange={(date: any) => handleTimeChange(date, index)} />
+                           <TimePicker label="Start time" className='flex-1' onChange={(time: any) => handleTimeChange(time, index)} name='time' value={time} />
                            <Button className='hover:bg-slate-500 flex justify-center' variant="contained" onClick={() => addSession(index)}>
                               <AddIcon color='action' />
                            </Button>
