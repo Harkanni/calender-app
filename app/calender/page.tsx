@@ -53,7 +53,7 @@ export default function CommonlyUsedComponents() {
       console.log('This is time: ', sessionState.time, 'This is date : ', sessionState.date, 'This is session : ', sessionState)
       let state = [...sessionData, sessionState]
       setSessionData([...state])
-      setSessionState({ time: '', date: ''})
+      setSessionState({ time: '', date: '' })
       console.log('state: ', state)
    };
 
@@ -87,44 +87,61 @@ export default function CommonlyUsedComponents() {
       }));
    }
 
-   const handleDateChange = (date:any, id:any) => {
+   const handleDateChange = (date: any, id: any) => {
       console.log(id, moment(date).format('ddd. MMMM Do, YYYY'));
-      
+
       // Update sessionState
       const updatedSessionState = { ...sessionState, date: moment(date).format('ddd. MMMM Do, YYYY') };
       setSessionState(updatedSessionState);
-    
+
       // IF UPDATING SESSION DATA
       if (sessionData[id]) {
-        // Update the specific session in the sessionData array
-        const updatedSessionData = sessionData.map((session:any, index:any) =>
-          index === id ? { ...session, date: moment(date).format('ddd. MMMM Do, YYYY') } : session
-        );
-    
-        console.log("This is edited session: ", updatedSessionData[id]);
-        setSessionData(updatedSessionData);
-      }
-    };
+         // Update the specific session in the sessionData array
+         const updatedSessionData = sessionData.map((session: any, index: any) =>
+            index === id ? { ...session, date: moment(date).format('ddd. MMMM Do, YYYY') } : session
+         );
 
-   const handleTimeChange = (time:any, id:any) => {
+         console.log("This is edited session: ", updatedSessionData[id]);
+         setSessionData(updatedSessionData);
+      }
+   };
+
+   const handleTimeChange = (time: any, id: any) => {
       console.log(id, moment(time).format('HH:mm a'));
-      
+
       // Update sessionState
       const updatedSessionState = { ...sessionState, time: moment(time).format('HH:mm a') };
       setSessionState(updatedSessionState);
-    
+
       // IF UPDATING SESSION DATA
       if (sessionData[id]) {
-        // Update the specific session in the sessionData array
-        const updatedSessionData = sessionData.map((session:any, index:any) =>
-          index === id ? { ...session, time: moment(time).format('HH:mm a') } : session
-        );
-    
-        console.log("This is edited session: ", updatedSessionData[id]);
-        setSessionData(updatedSessionData);
+         // Update the specific session in the sessionData array
+         const updatedSessionData = sessionData.map((session: any, index: any) =>
+            index === id ? { ...session, time: moment(time).format('HH:mm a') } : session
+         );
+
+         console.log("This is edited session: ", updatedSessionData[id]);
+         setSessionData(updatedSessionData);
       }
-    };
-    
+   };
+
+   const handleDateOrTimeChange = (value:any, field:any, id:any) => {
+      console.log("Date: ", value, " Field: ", field)
+      const formattedValue =
+         field === 'date'
+            ? moment(value).format('ddd. MMMM Do, YYYY')
+            : moment(value).format('HH:mm a');
+
+      setSessionState((prevState) => ({ ...prevState, [field]: formattedValue }));
+
+      if (sessionData[id]) {
+         const updatedSessionData = sessionData.map((session:any, index:any) =>
+            index === id ? { ...session, [field]: formattedValue } : session
+         );
+         setSessionData(updatedSessionData);
+      }
+   };
+
 
    return (
       <UserContext.Provider value={[]}>
@@ -135,9 +152,9 @@ export default function CommonlyUsedComponents() {
                      // console.log(index)
                      return (
                         <SessionWrapper key={`${index} session`} id={index}>
-                           <DatePicker localeText={{ clockLabelText: () => '' }} disablePast format='ddd. MMMM Do, YYYY' label="Session day" className='flex-1' value={date} onChange={(date: any, id) => handleDateChange(date, index)} name={'date'} />
+                           <DatePicker localeText={{ clockLabelText: () => '' }} disablePast format='ddd. MMMM Do, YYYY' label="Session day" className='flex-1' value={date} onChange={(date: any, id) => handleDateOrTimeChange(date, 'date', index)} name={'date'} />
                            <Spacer />
-                           <TimePicker label="Start time" className='flex-1' onChange={(time: any) => handleTimeChange(time, index)} name='time' value={time} />
+                           <TimePicker label="Start time" className='flex-1' onChange={(time: any) => handleDateOrTimeChange(time, 'time', index)} name='time' value={time} />
                            <Button className='hover:bg-slate-500 flex justify-center' variant="contained" onClick={() => addSession(index)}>
                               <AddIcon color='action' />
                            </Button>
