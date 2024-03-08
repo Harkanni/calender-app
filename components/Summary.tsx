@@ -53,6 +53,7 @@ const MiniComponent = ({ setModal, user, dogBreed, sessionCount, loading, setLoa
 }
 
 const Summary = ({ setModal, user, dogBreed, sessionCount, loading, setLoading }: Props) => {
+   console.log(user)
    const handleCloseModal = () => {
       setModal(false)
       setLoading(false)

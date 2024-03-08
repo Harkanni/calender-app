@@ -91,7 +91,7 @@ export default function CommonlyUsedComponents() {
                      // console.log(index)
                      return (
                         <SessionWrapper key={`${index} session`} id={index}>
-                           <DatePicker localeText={{clockLabelText: () => ''}} disablePast format='ddd, MMMM Do YYYY' label="Session day" className='flex-1' onChange={(date: any) => handleDateChange(date)} name={`session-${index}`} />
+                           <DatePicker localeText={{clockLabelText: () => ''}} disablePast format='ddd. MMMM Do, YYYY' label="Session day" className='flex-1' onChange={(date: any) => handleDateChange(date)} name={`session-${index}`} />
                            <Spacer />
                            <TimePicker label="Start time" className='flex-1' />
                            <Button className='hover:bg-slate-500 flex justify-center' variant="contained" onClick={() => addSession(index)}>
@@ -118,9 +118,9 @@ export default function CommonlyUsedComponents() {
                         label="Select Dog Breed 🐶"
                         onChange={(event) => handleSetDogBreed(event)}
                      >
-                        {dogBreeds.map((dogBreed: string) => {
+                        {dogBreeds.map((dogBreed: string, index: number) => {
                            return (
-                              <MenuItem value={dogBreed}>{dogBreed}</MenuItem>
+                              <MenuItem key={index} value={dogBreed}>{dogBreed}</MenuItem>
                            )
                         })}
                      </Select>
