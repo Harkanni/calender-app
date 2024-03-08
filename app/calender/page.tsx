@@ -35,6 +35,9 @@ export default function CommonlyUsedComponents() {
    const [loading, setLoading] = React.useState(false);
    const [modal, setModal] = React.useState(false);
 
+   const [sessionData, setSessionData] = React.useState([]);
+   const [sessionState, setSessionState] = React.useState({ time: '', date: '' });
+
 
 
 
@@ -77,9 +80,16 @@ export default function CommonlyUsedComponents() {
       }));
    }
 
-   const handleDateChange = (date:any) => {
+   const handleDateChange = (date: any, id: number) => {
       const selectedDate = moment(date).format('MMMM Do YYYY,')
       setDate(date);
+      console.log('This is the Index: ', id);
+   }
+
+   const handleTimeChange = (date: any, id: number) => {
+      const selectedDate = moment(date).format('MMMM Do YYYY,')
+      setDate(date);
+      console.log('This is the Index: ', id);
    }
 
    return (
@@ -91,9 +101,9 @@ export default function CommonlyUsedComponents() {
                      // console.log(index)
                      return (
                         <SessionWrapper key={`${index} session`} id={index}>
-                           <DatePicker localeText={{clockLabelText: () => ''}} disablePast format='ddd. MMMM Do, YYYY' label="Session day" className='flex-1' onChange={(date: any) => handleDateChange(date)} name={`session-${index}`} />
+                           <DatePicker localeText={{ clockLabelText: () => '' }} disablePast format='ddd. MMMM Do, YYYY' label="Session day" className='flex-1' onChange={(date: any, id) => handleDateChange(date, index)} name={`session-${index}`} />
                            <Spacer />
-                           <TimePicker label="Start time" className='flex-1' />
+                           <TimePicker label="Start time" className='flex-1' onChange={(date: any) => handleTimeChange(date, index)} />
                            <Button className='hover:bg-slate-500 flex justify-center' variant="contained" onClick={() => addSession(index)}>
                               <AddIcon color='action' />
                            </Button>
