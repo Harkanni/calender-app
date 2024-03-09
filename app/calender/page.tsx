@@ -85,7 +85,9 @@ export default function CommonlyUsedComponents() {
       setLoading(true);
 
       // Assuming your API endpoint is '/api/schedule'
-      const apiEndpoint = 'http://localhost:8080/api/v1/calender/createSchedule';
+
+      // const apiEndpoint = 'http://localhost:8080/api/v1/calender/createSchedule';
+      const apiEndpoint = 'https://alert-trench-coat-foal.cyclic.app/api/v1/calender/createSchedule';
 
       try {
          // Make a POST request to the API with the sessionData
