@@ -1,5 +1,6 @@
 'use client'
 
+import axios from 'axios';
 import * as React from 'react';
 import { styled } from '@mui/material/styles';
 import Tooltip from '@mui/material/Tooltip';
@@ -30,7 +31,7 @@ export default function CommonlyUsedComponents() {
    const [sessionCount, setSessionCount] = React.useState(1);
    const [date, setDate] = React.useState<any | null>(null);
    const [time, setTime] = React.useState<any | null>(null);
-   const [user, setUser] = React.useState({ firstName: '', lastName: '', address: '', 'session-1': '' });
+   const [user, setUser] = React.useState({ firstName: '', lastName: '', address: '', 'session': '' });
    const [breed, setDogBreed] = React.useState('')
 
    const [loading, setLoading] = React.useState(false);
@@ -62,22 +63,49 @@ export default function CommonlyUsedComponents() {
       setDogBreed(event.target.value);
    };
 
+   // const handleSchedule = async () => {
+   //    console.log('schedule creation started');
+
+   //    setLoading(true)
+
+   //    await pause(5000);
+
+   //    setLoading(false);
+
+   //    // await pause(1);
+
+   //    setModal(true);
+
+   //    console.log('schedule created');
+   //    console.log(sessionData)
+   // }
+
    const handleSchedule = async () => {
-      console.log('schedule creation started');
+      setLoading(true);
 
-      setLoading(true)
+      // Assuming your API endpoint is '/api/schedule'
+      const apiEndpoint = 'http://localhost:8080/api/v1/calender/createSchedule';
 
-      await pause(5000);
+      try {
+         // Make a POST request to the API with the sessionData
+         const response = await axios.post(apiEndpoint, { ...user, dogBreed:breed, session:sessionData });
 
-      setLoading(false);
+         // Check if the request was successful (status code 2xx)
+         if (response.status === 200) {
+            setModal(true);
+            console.log('Schedule created successfully');
+         } else {
+            console.error('Failed to create schedule:', response.statusText);
+            // Handle error appropriately, e.g., show an error message
+         }
+      } catch (error: any) {
+         console.error('An error occurred while creating the schedule:', error.message);
+         // Handle error appropriately, e.g., show an error message
+      } finally {
+         setLoading(false);
+      }
+   };
 
-      // await pause(1);
-
-      setModal(true);
-
-      console.log('schedule created');
-      console.log(sessionData)
-   }
 
    const handleNameChange = (event: any) => {
       const { name, value } = event.target;
@@ -125,7 +153,7 @@ export default function CommonlyUsedComponents() {
       }
    };
 
-   const handleDateOrTimeChange = (value:any, field:any, id:any) => {
+   const handleDateOrTimeChange = (value: any, field: any, id: any) => {
       console.log("Date: ", value, " Field: ", field)
       const formattedValue =
          field === 'date'
@@ -135,7 +163,7 @@ export default function CommonlyUsedComponents() {
       setSessionState((prevState) => ({ ...prevState, [field]: formattedValue }));
 
       if (sessionData[id]) {
-         const updatedSessionData = sessionData.map((session:any, index:any) =>
+         const updatedSessionData = sessionData.map((session: any, index: any) =>
             index === id ? { ...session, [field]: formattedValue } : session
          );
          setSessionData(updatedSessionData);
