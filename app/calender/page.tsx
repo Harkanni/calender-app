@@ -63,6 +63,7 @@ export default function CommonlyUsedComponents() {
       setDogBreed(event.target.value);
    };
 
+   // DEMO SCHEDULE HANDLER
    // const handleSchedule = async () => {
    //    console.log('schedule creation started');
 
