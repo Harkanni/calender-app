@@ -1,0 +1,30 @@
+
+
+
+@media screen and (max-width: 640px){
+   .container {
+      width: 100% !important;
+   }
+   .sessionWrapper {
+      flex-direction: column;
+      /* background: grey; */
+   }
+   .datePicker {
+      width: 100% !important;
+   }
+   .spacer {
+      display: none;
+   }
+   .timePicker {
+      width: 100% !important;
+   }
+   .textField {
+      width: 100% !important;
+   }
+   .lg_addSession {
+      display: none !important;
+   }
+   .scheduleBTN {
+      width: 100% !important;
+   }
+}

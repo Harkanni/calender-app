@@ -17,6 +17,7 @@ import Spacer from '@/components/Spacer';
 import { Button, FormControl, InputLabel, MenuItem, Select, SelectChangeEvent, TextField } from '@mui/material';
 // import { DateRangePicker } from '@mui/x-date-pickers-pro/DateRangePicker';
 
+import styles from '@/app/style.module.css'
 import { UserContext } from '@/constants/UserContext';
 import SendIcon from '@mui/icons-material/Send'
 import AddIcon from '@mui/icons-material/AddCircleRounded';
@@ -91,7 +92,7 @@ export default function CommonlyUsedComponents() {
 
       try {
          // Make a POST request to the API with the sessionData
-         const response = await axios.post(apiEndpoint, { ...user, dogBreed:breed, session:sessionData });
+         const response = await axios.post(apiEndpoint, { ...user, dogBreed: breed, session: sessionData });
 
          // Check if the request was successful (status code 2xx)
          if (response.status === 200) {
@@ -177,27 +178,30 @@ export default function CommonlyUsedComponents() {
    return (
       <UserContext.Provider value={[]}>
          <LocalizationProvider dateAdapter={AdapterMoment}>
-            <div className={`${(loading || modal) && 'blurBg'} form-container flex flex-col gap-4 min-w-[70vw] min-h-[70vh] m-auto bg-white rounded-md`}>
+            <div className={`${(loading || modal) && 'blurBg'} form-container flex flex-col gap-4 min-w-[70vw] min-h-[70vh] ${styles.container}  m-auto bg-white rounded-md`}>
                {
                   [...Array(sessionCount)].map((_, index) => {
                      // console.log(index)
                      return (
                         <SessionWrapper key={`${index} session`} id={index}>
-                           <DatePicker localeText={{ clockLabelText: () => '' }} disablePast format='ddd. MMMM Do, YYYY' label="Session day" className='flex-1' value={date} onChange={(date: any, id) => handleDateOrTimeChange(date, 'date', index)} name={'date'} />
+                           <DatePicker localeText={{ clockLabelText: () => '' }} disablePast format='ddd. MMMM Do, YYYY' label="Session day" className={`flex-1 ${styles.datePicker}`} value={date} onChange={(date: any, id) => handleDateOrTimeChange(date, 'date', index)} name={'date'} />
                            <Spacer />
-                           <TimePicker label="Start time" className='flex-1' onChange={(time: any) => handleDateOrTimeChange(time, 'time', index)} name='time' value={time} />
-                           <Button className='hover:bg-slate-500 flex justify-center' variant="contained" onClick={() => addSession(index)}>
+                           <TimePicker label="Start time" className={`flex-1 ${styles.timePicker}`} onChange={(time: any) => handleDateOrTimeChange(time, 'time', index)} name='time' value={time} />
+                           <Button className={`hover:bg-slate-500 flex justify-center ${styles.lg_addSession}`} variant="contained" onClick={() => addSession(index)}>
                               <AddIcon color='action' />
                            </Button>
                         </SessionWrapper>
                      )
                   })
                }
+               <Button className={`hover:bg-slate-500 flex justify-center p-4 mb-4 sm:hidden ${styles.sm_addSession}`} variant="contained" onClick={() => addSession(sessionCount)}>
+                  <AddIcon color='action' />
+               </Button>
 
                <SessionWrapper>
-                  <TextField id="outlined-basic" label="First name" name='firstName' variant="outlined" className='flex-1' value={user.firstName} onChange={handleNameChange} />
+                  <TextField id="outlined-basic" label="First name" name='firstName' variant="outlined" className={`flex-1 ${styles.textField}`} value={user.firstName} onChange={handleNameChange} />
                   <Spacer />
-                  <TextField id="outlined-basic" label="Last name" name='lastName' variant="outlined" className='flex-1' value={user.lastName} onChange={handleNameChange} />
+                  <TextField id="outlined-basic" label="Last name" name='lastName' variant="outlined" className={`flex-1 ${styles.textField}`} value={user.lastName} onChange={handleNameChange} />
                </SessionWrapper>
 
                <SessionWrapper>
@@ -233,7 +237,7 @@ export default function CommonlyUsedComponents() {
                   />
                </SessionWrapper>
 
-               <Button className='text-black text-bold p-4 w-[40%] hover:bg-slate-500' variant="contained" endIcon={<SendIcon />} onClick={handleSchedule}>
+               <Button className={`text-black text-[.5rem] p-4 w-[40%] hover:bg-slate-500 ${styles.scheduleBTN}`} variant="contained" endIcon={<SendIcon />} onClick={handleSchedule}>
                   Schedule
                </Button>
 
