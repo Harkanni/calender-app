@@ -29,7 +29,7 @@ import moment from 'moment';
 
 // import useTheme from '@mui/material/styles/useTheme';
 import theme from '@/constants/themes';
-import {createTheme, ThemeProvider} from '@mui/material/styles';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { lime, purple, common } from '@mui/material/colors';
 
 // const dogBreed = ['dogBreed', 'dogBreed', 'dogBreed', 'dogBreed', 'dogBreed']
@@ -50,7 +50,7 @@ export default function CommonlyUsedComponents() {
 
 
 
-   
+
 
 
    const pause = (time: number) =>
@@ -74,50 +74,66 @@ export default function CommonlyUsedComponents() {
    };
 
    // DEMO SCHEDULE HANDLER
-   // const handleSchedule = async () => {
-   //    console.log('schedule creation started');
-
-   //    setLoading(true)
-
-   //    await pause(5000);
-
-   //    setLoading(false);
-
-   //    // await pause(1);
-
-   //    setModal(true);
-
-   //    console.log('schedule created');
-   //    console.log(sessionData)
-   // }
-
    const handleSchedule = async () => {
-      setLoading(true);
+      console.log('schedule creation started');
 
-      // Assuming your API endpoint is '/api/schedule'
+      console.log('Attempting to create schedule');
 
-      // const apiEndpoint = 'http://localhost:8080/api/v1/calender/createSchedule';
-      const apiEndpoint = 'https://alert-trench-coat-foal.cyclic.app/api/v1/calender/createSchedule';
-
-      try {
-         // Make a POST request to the API with the sessionData
-         const response = await axios.post(apiEndpoint, { ...user, dogBreed: breed, session: sessionData });
-
-         // Check if the request was successful (status code 2xx)
-         if (response.status === 200) {
-            setModal(true);
-            console.log('Schedule created successfully');
-         } else {
-            console.error('Failed to create schedule:', response.statusText);
-            // Handle error appropriately, e.g., show an error message
-         }
-      } catch (error: any) {
-         console.error('An error occurred while creating the schedule:', error.message);
-         // Handle error appropriately, e.g., show an error message
-      } finally {
-         setLoading(false);
+      // Validate user information
+      if (!user.firstName || !user.lastName) {
+         alert('Please enter your first name, last name, and phone number.');
+         return; // Stop the function from proceeding
       }
-   };
+
+      // Validate sessionData
+      const isValid = sessionData.some((session: { date: string, time: string }) => session.date && session.time);
+
+      if (!isValid) {
+         alert('Please enter at least one schedule with both date and time.');
+         return; // Stop the function from proceeding
+      }
+
+      setLoading(true)
+
+      await pause(5000);
+
+      setLoading(false);
+
+      // await pause(1);
+
+      setModal(true);
+
+      console.log('schedule created');
+      console.log(sessionData)
+   }
+
+   // const handleSchedule = async () => {
+   //    setLoading(true);
+
+   //    // Assuming your API endpoint is '/api/schedule'
+
+   //    // const apiEndpoint = 'http://localhost:8080/api/v1/calender/createSchedule';
+   //    const apiEndpoint = 'https://alert-trench-coat-foal.cyclic.app/api/v1/calender/createSchedule';
+
+   //    try {
+   //       // Make a POST request to the API with the sessionData
+   //       const response = await axios.post(apiEndpoint, { ...user, dogBreed: breed, session: sessionData });
+
+   //       // Check if the request was successful (status code 2xx)
+   //       if (response.status === 200) {
+   //          setModal(true);
+   //          console.log('Schedule created successfully');
+   //       } else {
+   //          console.error('Failed to create schedule:', response.statusText);
+   //          // Handle error appropriately, e.g., show an error message
+   //       }
+   //    } catch (error: any) {
+   //       console.error('An error occurred while creating the schedule:', error.message);
+   //       // Handle error appropriately, e.g., show an error message
+   //    } finally {
+   //       setLoading(false);
+   //    }
+   // };
 
 
    const handleNameChange = (event: any) => {
