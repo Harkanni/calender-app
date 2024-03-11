@@ -40,6 +40,11 @@ body {
   padding: 1rem;
 }
 
+.css-1hw9j7s, .css-sghohy-MuiButtonBase-root-MuiButton-root {
+   background-color: #fff;
+   color: black;
+}
+
 .form-container {
   border: 1px solid #ccc; /* Adjust color and size as needed */
   padding: 2rem; /* Adjust padding as needed */
