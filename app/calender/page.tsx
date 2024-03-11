@@ -112,10 +112,34 @@ export default function CommonlyUsedComponents() {
 
       // Assuming your API endpoint is '/api/schedule'
 
+      console.log('Attempting to create schedule');
+
+
       // const apiEndpoint = 'http://localhost:8080/api/v1/calender/createSchedule';
       const apiEndpoint = 'https://alert-trench-coat-foal.cyclic.app/api/v1/calender/createSchedule';
 
       try {
+         // Validate user information
+         if (!user.firstName || !user.lastName || !user.address) {
+            alert('Please enter your first name, last name, address and phone number.');
+            return; // Stop the function from proceeding
+         }
+
+         if(!breed) {
+            alert('Please select your dogBreed ')
+            return; // Stop the function from proceeding
+         }
+
+         // Validate sessionData
+         const isValid = sessionData.some((session: { date: string, time: string }) => session.date && session.time);
+
+         if (!isValid) {
+            alert('Please enter at least one schedule with both date and time.');
+            return; // Stop the function from proceeding
+         }
+
+
+
          // Make a POST request to the API with the sessionData
          const response = await axios.post(apiEndpoint, { ...user, dogBreed: breed, session: sessionData });
 
