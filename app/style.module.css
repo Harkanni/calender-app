@@ -1,5 +1,5 @@
 .scheduleBTN {
-   
+
 }
 
 
@@ -9,6 +9,7 @@
    }
    .sessionWrapper {
       flex-direction: column;
+      gap: 1rem;
       /* background: grey; */
    }
    .datePicker {
