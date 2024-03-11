@@ -194,7 +194,7 @@ export default function CommonlyUsedComponents() {
                      )
                   })
                }
-               <Button className={`hover:bg-slate-500 flex justify-center p-4 mb-4 sm:hidden ${styles.sm_addSession}`} variant="contained" onClick={() => addSession(sessionCount)}>
+               <Button className={`hover:bg-slate-500 flex justify-center p-4 mb-4 ${styles.sm_addSession}`} variant="contained" onClick={() => addSession(sessionCount)}>
                   <AddIcon color='action' />
                </Button>
 
@@ -241,7 +241,7 @@ export default function CommonlyUsedComponents() {
                   Schedule
                </Button>
 
-
+ 
             </div>
             {
                (loading || modal) && <Summary setModal={setModal} user={user} dogBreed={breed} sessionCount={sessionCount} loading={loading} setLoading={setLoading} />
