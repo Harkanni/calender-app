@@ -22,6 +22,7 @@ import { UserContext } from '@/constants/UserContext';
 import SendIcon from '@mui/icons-material/Send'
 import AddIcon from '@mui/icons-material/AddCircleRounded';
 import { dogBreeds } from '@/constants/dogBreeds';
+import { Services } from '@/constants/services'
 import Summary from '@/components/Summary';
 import dayjs, { Dayjs } from 'dayjs';
 import moment from 'moment';
@@ -41,6 +42,7 @@ export default function CommonlyUsedComponents() {
    const [time, setTime] = React.useState<any | null>(null);
    const [user, setUser] = React.useState({ firstName: '', lastName: '', address: '', 'session': '' });
    const [breed, setDogBreed] = React.useState('')
+   const [service, setDogService] = React.useState('')
 
    const [loading, setLoading] = React.useState(false);
    const [modal, setModal] = React.useState(false);
@@ -71,6 +73,10 @@ export default function CommonlyUsedComponents() {
    const handleSetDogBreed = (event: SelectChangeEvent) => {
       // console.log(event)
       setDogBreed(event.target.value);
+   };
+   const handleSetDogService = (event: SelectChangeEvent) => {
+      // console.log(event)
+      setDogService(event.target.value);
    };
 
    // DEMO SCHEDULE HANDLER
@@ -227,6 +233,14 @@ export default function CommonlyUsedComponents() {
       }
    };
 
+   const shouldDisableDate = (date: Dayjs) => {
+      const day = date.day(); // Get the day of the week (0 for Sunday, 1 for Monday, etc.)
+      return day !== 0 && day !== 6 && day != 5 && day != 4; // Disable all days except Sunday (0) and Saturday (6)
+      // console.log(day)
+    };
+    
+  
+
 
    return (
       <ThemeProvider theme={theme}>
@@ -238,7 +252,7 @@ export default function CommonlyUsedComponents() {
                         // console.log(index)
                         return (
                            <SessionWrapper key={`${index} session`} id={index}>
-                              <DatePicker localeText={{ clockLabelText: () => '' }} disablePast format='ddd. MMMM Do, YYYY' label="Session day" className={`flex-1 ${styles.datePicker}`} value={date} onChange={(date: any, id) => handleDateOrTimeChange(date, 'date', index)} name={'date'} />
+                              <DatePicker shouldDisableDate={shouldDisableDate} localeText={{ clockLabelText: () => '' }} disablePast format='ddd. MMMM Do, YYYY' label="Session day" className={`flex-1 ${styles.datePicker}`} value={date} onChange={(date: any, id) => handleDateOrTimeChange(date, 'date', index)} name={'date'} />
                               <Spacer />
                               <TimePicker label="Start time" className={`flex-1 ${styles.timePicker}`} onChange={(time: any) => handleDateOrTimeChange(time, 'time', index)} name='time' value={time} />
                               <Button color='warning' className={`hover:bg-slate-500 flex justify-center ${styles.lg_addSession}`} variant="contained" onClick={() => addSession(index)}>
@@ -271,6 +285,25 @@ export default function CommonlyUsedComponents() {
                            {dogBreeds.map((dogBreed: string, index: number) => {
                               return (
                                  <MenuItem key={index} value={dogBreed}>{dogBreed}</MenuItem>
+                              )
+                           })}
+                        </Select>
+                     </FormControl>
+                  </SessionWrapper>
+
+                  <SessionWrapper>
+                     <FormControl fullWidth>
+                        <InputLabel id="demo-simple-select-service-label">Select service 🐶</InputLabel>
+                        <Select
+                           labelId="demo-simple-select-service-label"
+                           id="demo-simple-select-service"
+                           value={service}
+                           label="Select Dog Breed 🐶"
+                           onChange={(event) => handleSetDogService(event)}
+                        >
+                           {Services.map((service: string, index: number) => {
+                              return (
+                                 <MenuItem key={index} value={service}>{service}</MenuItem>
                               )
                            })}
                         </Select>
