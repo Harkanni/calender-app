@@ -5,3 +5,4 @@ export const Services = [
   'Boarding 🏠🐶',
   'Veterinary Care ⚕️🐶' 
 ];
+ 
