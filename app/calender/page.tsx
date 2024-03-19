@@ -131,7 +131,7 @@ export default function CommonlyUsedComponents() {
             return; // Stop the function from proceeding
          }
 
-         if(!breed) {
+         if (!breed) {
             alert('Please select your dogBreed ')
             return; // Stop the function from proceeding
          }
@@ -237,102 +237,105 @@ export default function CommonlyUsedComponents() {
       const day = date.day(); // Get the day of the week (0 for Sunday, 1 for Monday, etc.)
       return day !== 0 && day !== 6 && day != 5 && day != 4; // Disable all days except Sunday (0) and Saturday (6)
       // console.log(day)
-    };
-    
-  
+   };
+
+
 
 
    return (
       <ThemeProvider theme={theme}>
          <UserContext.Provider value={[]}>
             <LocalizationProvider dateAdapter={AdapterMoment}>
-               <div className={`${(loading || modal) && 'blurBg'} form-container flex flex-col gap-4 min-w-[70vw] min-h-[70vh] ${styles.container}  m-auto bg-white rounded-md`}>
+               <div className='body'>
+                  <div className={`${(loading || modal) && 'blurBg'} form-container flex flex-col gap-4 min-w-[70vw] min-h-[70vh] ${styles.container}  m-auto bg-white rounded-md`}>
+                     {
+                        [...Array(sessionCount)].map((_, index) => {
+                           // console.log(index)
+                           return (
+                              <SessionWrapper key={`${index} session`} id={index}>
+                                 <DatePicker shouldDisableDate={shouldDisableDate} localeText={{ clockLabelText: () => '' }} disablePast format='ddd. MMMM Do, YYYY' label="Session day" className={`flex-1 ${styles.datePicker}`} value={date} onChange={(date: any, id) => handleDateOrTimeChange(date, 'date', index)} name={'date'} />
+                                 <Spacer />
+                                 <TimePicker label="Start time" className={`flex-1 ${styles.timePicker}`} onChange={(time: any) => handleDateOrTimeChange(time, 'time', index)} name='time' value={time} />
+                                 <Button color='warning' className={`hover:bg-slate-500 flex justify-center ${styles.lg_addSession}`} variant="contained" onClick={() => addSession(index)}>
+                                    <AddIcon color='action' />
+                                 </Button>
+                              </SessionWrapper>
+                           )
+                        })
+                     }
+                     <Button color='warning' className={`hover:bg-slate-500 flex justify-center p-4 mb-4 ${styles.sm_addSession}`} variant="contained" onClick={() => addSession(sessionCount)}>
+                        <AddIcon color='action' />
+                     </Button>
+
+                     <SessionWrapper>
+                        <TextField id="outlined-basic" label="First name" name='firstName' variant="outlined" className={`flex-1 ${styles.textField}`} value={user.firstName} onChange={handleNameChange} />
+                        <Spacer />
+                        <TextField id="outlined-basic" label="Last name" name='lastName' variant="outlined" className={`flex-1 ${styles.textField}`} value={user.lastName} onChange={handleNameChange} />
+                     </SessionWrapper>
+
+                     <SessionWrapper>
+                        <FormControl fullWidth>
+                           <InputLabel id="demo-simple-select-label">Select Dog Breed 🐶</InputLabel>
+                           <Select
+                              labelId="demo-simple-select-label"
+                              id="demo-simple-select"
+                              value={breed}
+                              label="Select Dog Breed 🐶"
+                              onChange={(event) => handleSetDogBreed(event)}
+                           >
+                              {dogBreeds.map((dogBreed: string, index: number) => {
+                                 return (
+                                    <MenuItem key={index} value={dogBreed}>{dogBreed}</MenuItem>
+                                 )
+                              })}
+                           </Select>
+                        </FormControl>
+                     </SessionWrapper>
+
+                     <SessionWrapper>
+                        <FormControl fullWidth>
+                           <InputLabel id="demo-simple-select-service-label">Select service 🐶</InputLabel>
+                           <Select
+                              labelId="demo-simple-select-service-label"
+                              id="demo-simple-select-service"
+                              value={service}
+                              label="Select Dog Breed 🐶"
+                              onChange={(event) => handleSetDogService(event)}
+                           >
+                              {Services.map((service: string, index: number) => {
+                                 return (
+                                    <MenuItem key={index} value={service}>{service}</MenuItem>
+                                 )
+                              })}
+                           </Select>
+                        </FormControl>
+                     </SessionWrapper>
+
+                     <SessionWrapper>
+                        <TextField
+                           id="outlined-multiline-flexible"
+                           label="Address"
+                           multiline
+                           maxRows={4}
+                           minRows={4}
+                           fullWidth
+                           name='address'
+                           value={user.address}
+                           onChange={handleNameChange}
+                        />
+                     </SessionWrapper>
+
+                     <Button color='warning' className={`text-black p-4 w-[40%] hover:bg-slate-500 ${styles.scheduleBTN}`} variant="contained" endIcon={<SendIcon />} onClick={handleSchedule}>
+                        Schedule
+                     </Button>
+
+
+                  </div>
                   {
-                     [...Array(sessionCount)].map((_, index) => {
-                        // console.log(index)
-                        return (
-                           <SessionWrapper key={`${index} session`} id={index}>
-                              <DatePicker shouldDisableDate={shouldDisableDate} localeText={{ clockLabelText: () => '' }} disablePast format='ddd. MMMM Do, YYYY' label="Session day" className={`flex-1 ${styles.datePicker}`} value={date} onChange={(date: any, id) => handleDateOrTimeChange(date, 'date', index)} name={'date'} />
-                              <Spacer />
-                              <TimePicker label="Start time" className={`flex-1 ${styles.timePicker}`} onChange={(time: any) => handleDateOrTimeChange(time, 'time', index)} name='time' value={time} />
-                              <Button color='warning' className={`hover:bg-slate-500 flex justify-center ${styles.lg_addSession}`} variant="contained" onClick={() => addSession(index)}>
-                                 <AddIcon color='action' />
-                              </Button>
-                           </SessionWrapper>
-                        )
-                     })
+                     (loading || modal) && <Summary setModal={setModal} user={user} dogBreed={breed} sessionCount={sessionCount} loading={loading} setLoading={setLoading} />
                   }
-                  <Button color='warning' className={`hover:bg-slate-500 flex justify-center p-4 mb-4 ${styles.sm_addSession}`} variant="contained" onClick={() => addSession(sessionCount)}>
-                     <AddIcon color='action' />
-                  </Button>
-
-                  <SessionWrapper>
-                     <TextField id="outlined-basic" label="First name" name='firstName' variant="outlined" className={`flex-1 ${styles.textField}`} value={user.firstName} onChange={handleNameChange} />
-                     <Spacer />
-                     <TextField id="outlined-basic" label="Last name" name='lastName' variant="outlined" className={`flex-1 ${styles.textField}`} value={user.lastName} onChange={handleNameChange} />
-                  </SessionWrapper>
-
-                  <SessionWrapper>
-                     <FormControl fullWidth>
-                        <InputLabel id="demo-simple-select-label">Select Dog Breed 🐶</InputLabel>
-                        <Select
-                           labelId="demo-simple-select-label"
-                           id="demo-simple-select"
-                           value={breed}
-                           label="Select Dog Breed 🐶"
-                           onChange={(event) => handleSetDogBreed(event)}
-                        >
-                           {dogBreeds.map((dogBreed: string, index: number) => {
-                              return (
-                                 <MenuItem key={index} value={dogBreed}>{dogBreed}</MenuItem>
-                              )
-                           })}
-                        </Select>
-                     </FormControl>
-                  </SessionWrapper>
-
-                  <SessionWrapper>
-                     <FormControl fullWidth>
-                        <InputLabel id="demo-simple-select-service-label">Select service 🐶</InputLabel>
-                        <Select
-                           labelId="demo-simple-select-service-label"
-                           id="demo-simple-select-service"
-                           value={service}
-                           label="Select Dog Breed 🐶"
-                           onChange={(event) => handleSetDogService(event)}
-                        >
-                           {Services.map((service: string, index: number) => {
-                              return (
-                                 <MenuItem key={index} value={service}>{service}</MenuItem>
-                              )
-                           })}
-                        </Select>
-                     </FormControl>
-                  </SessionWrapper>
-
-                  <SessionWrapper>
-                     <TextField
-                        id="outlined-multiline-flexible"
-                        label="Address"
-                        multiline
-                        maxRows={4}
-                        minRows={4}
-                        fullWidth
-                        name='address'
-                        value={user.address}
-                        onChange={handleNameChange}
-                     />
-                  </SessionWrapper>
-
-                  <Button color='warning' className={`text-black p-4 w-[40%] hover:bg-slate-500 ${styles.scheduleBTN}`} variant="contained" endIcon={<SendIcon />} onClick={handleSchedule}>
-                     Schedule
-                  </Button>
-
 
                </div>
-               {
-                  (loading || modal) && <Summary setModal={setModal} user={user} dogBreed={breed} sessionCount={sessionCount} loading={loading} setLoading={setLoading} />
-               }
 
             </LocalizationProvider>
 
