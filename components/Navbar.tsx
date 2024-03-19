@@ -1,5 +1,8 @@
 import React from 'react'
 import styles from '@/app/dashboard.module.css'
+import { VscBellDot } from "react-icons/vsc";
+
+
 
 const Navbar = () => {
   return (
@@ -10,7 +13,7 @@ const Navbar = () => {
          <span>Logo</span>
       </div>
       <div className={`flex gap-4`}>
-         <span>notification icon</span>
+         <span><VscBellDot size={23}/></span>
          <div>Bovi John</div>
          <span>dropdown icon</span>
       </div>
