@@ -8,6 +8,9 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers';
 import moment from 'moment';
 
+import { Analytics } from '@/constants/analytics'
+import EnhancedTable from './Table';
+
 const MainSection = () => {
    const [sessionCount, setSessionCount] = React.useState(1);
    const [date, setDate] = React.useState<any | null>(null);
@@ -45,13 +48,37 @@ const MainSection = () => {
    return (
       <LocalizationProvider dateAdapter={AdapterMoment}>
          <div className={`flex-[40rem] p-10 ${styles['box-shadow']}`}>
-            <h1 className='mb-2'>Set Date Available</h1>
-            <DatePicker localeText={{ clockLabelText: () => '' }} disablePast format='ddd. MMMM Do, YYYY' label="" className='flex-1' value={date} onChange={(date: any, id) => handleDateOrTimeChange(date, 'date', id)} name={'date'} />
-         </div>
+            <div>
+               <h1 className='mb-3'>Set Date Available</h1>
+               <DatePicker localeText={{ clockLabelText: () => '' }} disablePast format='ddd. MMMM Do, YYYY' label="" className='flex-1' value={date} onChange={(date: any, id) => handleDateOrTimeChange(date, 'date', id)} name={'date'} />
+            </div>
 
-         <div className='flex justify-between'>
-            <span>Overview</span>
-            <span>Today</span>
+            <div className='flex justify-between mt-10 mb-4'>
+               <span>Overview</span>
+               <span>Today</span>
+            </div>
+
+            <div className='flex gap-4'>
+               {
+                  Analytics.map((field, index) => (
+                     <div className='p-4 bg-[#b6e2ea] rounded-lg flex-1'>
+                        <p className='mb-2'>{field.title}</p>
+                        <p className='font-black text-lg mb-1'>{field.count}</p>
+                        <p className='text-sm'>{field.desc}</p>
+                     </div>
+                  ))
+               }
+            </div>
+
+
+            <div className='mt-10'>
+               <h1 className='font-black '>Booking Overview</h1>
+               <p className='font-light text-sm'>All service bookings Overview</p>
+            </div>
+
+            <div>
+               <EnhancedTable />
+            </div>
          </div>
 
       </LocalizationProvider>
