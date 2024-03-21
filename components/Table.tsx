@@ -70,13 +70,10 @@ const EnhancedTable = () => {
                <Table.HeadCell>clients name</Table.HeadCell>
                <Table.HeadCell>Email Address</Table.HeadCell>
                <Table.HeadCell>Date/Time</Table.HeadCell>
-               <Table.HeadCell>Dog Type</Table.HeadCell>
+               <Table.HeadCell>DogType</Table.HeadCell>
                <Table.HeadCell>Notes/Comments</Table.HeadCell>
                <Table.HeadCell>Address</Table.HeadCell>
                <Table.HeadCell>Status</Table.HeadCell>
-               <Table.HeadCell>
-                  <span className="sr-only">Edit</span>
-               </Table.HeadCell>
             </Table.Head>
             <Table.Body className="divide-y">
                {
@@ -86,16 +83,16 @@ const EnhancedTable = () => {
                         <Table.Cell className="p-4">
                            <Checkbox />
                         </Table.Cell>
-                        <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white flex items-center gap-2">
-                           <span>
+                        <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white flex items-center gap-2 p-8">
+                           <div>
                               <Avatar {...stringAvatar(user.name)}>
                                  <Image
                                     src={getRandomItemFromArray(avatarList)}
                                     alt='Bovi John'
                                  />
                               </Avatar>
-                           </span>
-                           <span> {user.name} </span>
+                           </div>
+                           <div> {user.name} </div>
                         </Table.Cell>
                         <Table.Cell>{user.email}</Table.Cell>
                         <Table.Cell>{user.date}</Table.Cell>

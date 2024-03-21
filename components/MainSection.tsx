@@ -8,8 +8,9 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers';
 import moment from 'moment';
 
-import { Analytics } from '@/constants/analytics'
+import { countUserStatus } from '@/constants/analytics'
 import EnhancedTable from './Table';
+import { Users } from '@/constants/users';
 
 const MainSection = () => {
    const [sessionCount, setSessionCount] = React.useState(1);
@@ -24,7 +25,7 @@ const MainSection = () => {
    const [sessionData, setSessionData] = React.useState<any>([{ time: '', date: '' }]);
    const [sessionState, setSessionState] = React.useState({ time: '', date: '' });
 
-
+   const Analytics = countUserStatus(Users)
 
    const handleDateOrTimeChange = (value: any, field: any, id: any) => {
       console.log("Date: ", value, " Field: ", field)
@@ -42,6 +43,8 @@ const MainSection = () => {
          setSessionData(updatedSessionData);
       }
    };
+
+
 
 
 
