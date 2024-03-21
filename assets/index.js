@@ -6,5 +6,6 @@ import avatar4 from './avatar4.jpg';
 import avatar5 from './avatar5.jpg';
 import avatar6 from './avatar6.jpg';
 // import avatar7 from './avatar.jpg';
+import dog1 from './dog1.jpg';
 
-export { logo, avatar, avatar2, avatar3, avatar4, avatar5, avatar6 };
+export { logo, avatar, avatar2, avatar3, avatar4, avatar5, avatar6, dog1 };

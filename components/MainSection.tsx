@@ -50,7 +50,7 @@ const MainSection = () => {
 
    return (
       <LocalizationProvider dateAdapter={AdapterMoment}>
-         <div className={`flex-[40rem] p-10 ${styles['box-shadow']}`}>
+         <div className={`w-[80%] flerrrx-[40rem] p-10 ${styles['box-shadow']}`}>
             <div>
                <h1 className='mb-3'>Set Date Available</h1>
                <DatePicker localeText={{ clockLabelText: () => '' }} disablePast format='ddd. MMMM Do, YYYY' label="" className='flex-1' value={date} onChange={(date: any, id) => handleDateOrTimeChange(date, 'date', id)} name={'date'} />

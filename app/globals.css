@@ -83,3 +83,18 @@ html {
   min-width: 50vw;
   padding: 2rem;
 }
+
+.text-with-ellipsis {
+   overflow: hidden;
+   text-overflow: ellipsis !important;
+   white-space: nowrap;
+}
+
+
+/* 
+white-space: nowrap; /
+overflow: hidden; 
+text-overflow: ellipsis; 
+word-wrap: break-word;
+
+*/

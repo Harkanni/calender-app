@@ -97,8 +97,10 @@ const EnhancedTable = () => {
                         <Table.Cell>{user.email}</Table.Cell>
                         <Table.Cell>{user.date}</Table.Cell>
                         <Table.Cell>{user.breed}</Table.Cell>
-                        <Table.Cell>{user.comment}</Table.Cell>
-                        <Table.Cell>{user.address}</Table.Cell>
+                        <Table.Cell>
+                           <p className='whitespace-nowrap w-[10rem] overflow-hidden text-ellipsis'>{user.comment}</p>
+                        </Table.Cell>
+                        <Table.Cell className='whitespace-nowrap w-[10rem] overflow-hidden text-ellipsis'>{user.address}</Table.Cell>
                         <Table.Cell>{user.status}</Table.Cell>
                      </Table.Row>
                   ))
