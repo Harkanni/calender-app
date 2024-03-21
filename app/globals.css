@@ -35,6 +35,10 @@ body {
   }
 } */
 
+html {
+   font-size: 13px;
+}
+
 .body {
   display: flex;
   align-items: center;

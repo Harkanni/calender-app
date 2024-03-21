@@ -12,7 +12,6 @@ const page = () => {
             <Sidebar />
             <MainSection />
          </section>
-         Dashboard
       </div>
    )
 }

@@ -71,9 +71,9 @@ const MainSection = () => {
             </div>
 
 
-            <div className='mt-10'>
-               <h1 className='font-black '>Booking Overview</h1>
-               <p className='font-light text-sm'>All service bookings Overview</p>
+            <div className='mt-20'>
+               <h1 className='font-black mb-1'>Booking Overview</h1>
+               <p className='font-light text-sm mb-5'>All service bookings Overview</p>
             </div>
 
             <div>
