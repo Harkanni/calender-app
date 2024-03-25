@@ -10,7 +10,7 @@ import Link from 'next/link';
 const Sidebar = () => {
    return (
       <section className={`flex flex-col gap-10 w-[30%] flerrrx-[2rem] p-10 ${styles['box-shadow']}`}>
-         <Link href={'/coming-soon'}>
+         <Link href={'/dashboard'}>
             <div className='flex items-center gap-3'>
                <RiDashboardFill size={25} />
                Dashboard

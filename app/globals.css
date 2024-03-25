@@ -2,9 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-
-
-
 /* :root {
   --foreground-rgb: 0, 0, 0;
   --background-start-rgb: 214, 219, 220;
@@ -36,7 +33,7 @@ body {
 } */
 
 html {
-   font-size: 15px;
+  font-size: 15px;
 }
 
 .body {
@@ -47,9 +44,10 @@ html {
   padding: 1rem;
 }
 
-.css-1hw9j7s, .css-sghohy-MuiButtonBase-root-MuiButton-root {
-   background-color: #fff;
-   color: black;
+.css-1hw9j7s,
+.css-sghohy-MuiButtonBase-root-MuiButton-root {
+  background-color: #fff;
+  color: black;
 }
 
 .form-container {
@@ -59,7 +57,7 @@ html {
 }
 
 .blurBg {
-   filter: blur(3px);
+  filter: blur(3px);
 }
 
 .session-wrapper777777 {
@@ -84,12 +82,53 @@ html {
   padding: 2rem;
 }
 
-.text-with-ellipsis {
-   overflow: hidden;
-   text-overflow: ellipsis !important;
-   white-space: nowrap;
+.analytics {
+  box-shadow: 1px 1px 1px 2px rgba(0, 0, 0, 0.08); /* Adjust values as needed */
 }
 
+.text-with-ellipsis {
+  overflow: hidden;
+  text-overflow: ellipsis !important;
+  white-space: nowrap;
+}
+
+input {
+  padding: 1rem !important;
+}
+
+input[type='checkbox'] {
+  padding: 0 !important;
+}
+
+[type='text']:focus,
+[type='email']:focus,
+[type='url']:focus,
+[type='password']:focus,
+[type='number']:focus,
+[type='date']:focus,
+[type='datetime-local']:focus,
+[type='month']:focus,
+[type='search']:focus,
+[type='tel']:focus,
+[type='time']:focus,
+[type='week']:focus,
+[multiple]:focus,
+textarea:focus,
+select:focus {
+  outline: none;
+  outline-offset: 2px;
+  --tw-ring-inset: '';
+  --tw-ring-offset-width: 0px;
+  --tw-ring-offset-color: #fff;
+  --tw-ring-color: #1c64f2;
+  --tw-ring-offset-shadow: var(--tw-ring-inset) 0 0 0
+    var(--tw-ring-offset-width) var(--tw-ring-offset-color);
+  --tw-ring-shadow: var(--tw-ring-inset) 0 0 0
+    calc(1px + var(--tw-ring-offset-width)) var(--tw-ring-color);
+  box-shadow: var(--tw-ring-offset-shadow), var(--tw-ring-shadow),
+    var(--tw-shadow);
+  border-color: #1c64f2;
+}
 
 /* 
 white-space: nowrap; /

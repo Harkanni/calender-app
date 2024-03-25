@@ -40,7 +40,7 @@ export default function CommonlyUsedComponents() {
    const [sessionCount, setSessionCount] = React.useState(1);
    const [date, setDate] = React.useState<any | null>(null);
    const [time, setTime] = React.useState<any | null>(null);
-   const [user, setUser] = React.useState({ firstName: '', lastName: '', address: '', 'session': '' });
+   const [user, setUser] = React.useState({ firstName: '', lastName: '', email: '', address: '', 'session': '' });
    const [breed, setDogBreed] = React.useState('')
    const [service, setDogService] = React.useState('')
 
@@ -126,7 +126,7 @@ export default function CommonlyUsedComponents() {
 
       try {
          // Validate user information
-         if (!user.firstName || !user.lastName || !user.address) {
+         if (!user.firstName || !user.lastName || !user.address || !user.email) {
             alert('Please enter your first name, last name, address and phone number.');
             return; // Stop the function from proceeding
          }
@@ -152,7 +152,7 @@ export default function CommonlyUsedComponents() {
          // Check if the request was successful (status code 2xx)
          if (response.status === 200) {
             setModal(true);
-            console.log('Schedule created successfully');
+            console.log('Schedule created successfully: ', user);
          } else {
             console.error('Failed to create schedule:', response.statusText);
             // Handle error appropriately, e.g., show an error message
@@ -271,6 +271,10 @@ export default function CommonlyUsedComponents() {
                         <TextField id="outlined-basic" label="First name" name='firstName' variant="outlined" className={`flex-1 ${styles.textField}`} value={user.firstName} onChange={handleNameChange} />
                         <Spacer />
                         <TextField id="outlined-basic" label="Last name" name='lastName' variant="outlined" className={`flex-1 ${styles.textField}`} value={user.lastName} onChange={handleNameChange} />
+                     </SessionWrapper>
+
+                     <SessionWrapper>
+                        <TextField id="outlined-basic" label="Email" name='email' variant="outlined" className={`flex-1 ${styles.textField}`} value={user.email} onChange={handleNameChange} />
                      </SessionWrapper>
 
                      <SessionWrapper>

@@ -53,7 +53,7 @@ const MainSection = () => {
          <div className={`w-[80%] flerrrx-[40rem] p-10 ${styles['box-shadow']}`}>
             <div>
                <h1 className='mb-3'>Set Date Available</h1>
-               <DatePicker localeText={{ clockLabelText: () => '' }} disablePast format='ddd. MMMM Do, YYYY' label="" className='flex-1' value={date} onChange={(date: any, id) => handleDateOrTimeChange(date, 'date', id)} name={'date'} />
+               <DatePicker localeText={{ clockLabelText: () => '' }} disablePast  label="" className='flex-1' value={date} onChange={(date: any, id) => handleDateOrTimeChange(date, 'date', id)} name={'date'} />
             </div>
 
             <div className='flex justify-between mt-10 mb-4'>
@@ -64,7 +64,7 @@ const MainSection = () => {
             <div className='flex gap-4'>
                {
                   Analytics.map((field, index) => (
-                     <div className='p-4 bg-[#b6e2ea] rounded-lg flex-1'>
+                     <div className='p-4 bg-[#b6e2ea] rounded-lg flex-1 analytics'>
                         <p className='mb-2'>{field.title}</p>
                         <p className='font-black text-lg mb-1'>{field.count}</p>
                         <p className='text-sm'>{field.desc}</p>
