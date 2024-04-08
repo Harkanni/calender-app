@@ -10,41 +10,20 @@ import Image from 'next/image';
 import { avatar, avatar2, avatar3, avatar4, avatar5, avatar6 } from '@/assets';
 
 
+interface Props {
+   schedules: any,
+   setSchedules: any, 
+   currentPage: number, 
+   setCurrentPage: any, 
+   totalPages: number, 
+   setTotalPages: any, 
+}
 
-const EnhancedTable = () => {
+
+const EnhancedTable = ({schedules, setSchedules, currentPage, setCurrentPage, totalPages, setTotalPages } : Props) => {
    const avatarList = [avatar, avatar2, avatar3, avatar4, avatar5, avatar6]
-   const [schedules, setSchedules] = useState([]);
-   const [currentPage, setCurrentPage] = useState(1);
-   const [totalPages, setTotalPages] = useState(3);
 
-   useEffect(() => {
-      // Function to fetch schedules from the backend
-      async function fetchSchedulesFromBackend() {
-         try {
-            // Make an API call to fetch schedules for the current page
-            const response = await fetch(`https://alert-trench-coat-foal.cyclic.app/api/v1/calender/schedules?page=${currentPage}&perPage=5`);
-            if (!response.ok) {
-               throw new Error('Failed to fetch schedules');
-            }
-            // Parse the JSON response
-            const data = await response.json();
-            // Extract schedules and total pages from the response
-            const { schedules: fetchedSchedules, totalPages: fetchedTotalPages } = data;
-            console.log(data);
-            // Set the fetched schedules and total pages in state
-            setSchedules(fetchedSchedules);
-            setTotalPages(fetchedTotalPages);
-         } catch (error) {
-            console.error('Error fetching schedules:', error);
-            // Optionally handle error
-            alert('Error fetching your appointments, check your internet connection and try again later')
-         }
-      }
-
-      // Call the function to fetch schedules when the component mounts or currentPage changes
-      fetchSchedulesFromBackend();
-   }, [currentPage]); // Dependency array includes currentPage to refetch schedules when it changes
-
+   
    // Function to handle page change
    const handlePageChange = (page: number) => {
       setCurrentPage(page);
@@ -163,7 +142,7 @@ const EnhancedTable = () => {
          {/* Pagination controls */}
 
          <div className="flex overflow-x-auto sm:justify-center">
-            <Pagination className="cursor-pointer" currentPage={currentPage} totalPages={totalPages < 1 ? 2 : totalPages} onPageChange={() => handlePageChange(1)} showIcons defaultValue={2}/>
+            <Pagination className="cursor-pointer" currentPage={currentPage} totalPages={ totalPages } onPageChange={(page) => handlePageChange(page)} showIcons/>
          </div>
       </>
 

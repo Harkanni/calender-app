@@ -121,8 +121,8 @@ export default function CommonlyUsedComponents() {
       console.log('Attempting to create schedule');
 
 
-      // const apiEndpoint = 'http://localhost:8080/api/v1/calender/createSchedule';
-      const apiEndpoint = 'https://alert-trench-coat-foal.cyclic.app/api/v1/calender/createSchedule';
+      const apiEndpoint = 'http://localhost:8080/api/v1/calender/createSchedule';
+      // const apiEndpoint = 'https://alert-trench-coat-foal.cyclic.app/api/v1/calender/createSchedule';
 
       try {
          // Validate user information
