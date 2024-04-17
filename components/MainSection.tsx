@@ -92,17 +92,78 @@ const MainSection = () => {
       )
    }
 
-   const handleGetAccessToken = async () => {
-      try {
-         const response = await fetch(`https://marketplace.gohighlevel.com/oauth/chooselocation?response_type=code&redirect_uri=http://localhost:3000/redirectHere&client_id=66023b6f76979edf38194d72-lu7t76eg&scope=calendars.readonly calendars.write calendars/events.readonly contacts.readonly contacts.write`,);
+   const handleCreateContact = async () => {
+      // const fetch = require('node-fetch'); // Assuming you're using Node.js
+
+      const data = {
+         "firstName": "James",
+         "lastName": "bond",
+         "name": "James Bond",
+         "email": "James@deos.com",
+         "locationId": "JnzQAd6IWawdFzuBDK0q",
+         "gender": "male",
+         "phone": "+1 888-888-8889",
+         "address1": "3535 1st St N",
+         "city": "Dolomite",
+         "state": "AL",
+         "postalCode": "35061",
+         "website": "https://www.tesla.com",
+         "timezone": "America/Chihuahua",
+         "dnd": true,
          
-         if (!response.ok) {
-            throw new Error('Failed to fetch schedules');
-         }
-      } catch (error) {
-         console.error('Error fetching access code:', error);
+         "source": "public api",
+         "country": "US",
+         "companyName": "DGS VolMAX"
       }
+
+      const url = 'http://localhost:3000/createContact'; // Replace with your server URL
+      const options = {
+         method: 'POST',
+         headers: {
+            'Content-Type': 'application/json',
+         },
+         body: JSON.stringify(data),
+      };
+
+      fetch(url, options)
+         .then((response) => response.json())
+         .then((data) => console.log(data))
+         .catch((error) => console.error('Error:', error));
+
    }
+   const handleCreateAppointment = async () => {
+      // const fetch = require('node-fetch'); // Assuming you're using Node.js
+
+      const data = {
+         calendarId: 'LyczXLUAFxx67tIiajiv',
+         locationId: 'JnzQAd6IWawdFzuBDK0q',
+         contactId: '8KbnhNZk8syVO4HDxvUJ',
+         startTime : "2024-04-10T16:00:00+05:30",
+         endTime: "2024-04-10T17:00:00+05:30",
+         title: 'Test Event',
+         appointmentStatus: 'new',
+         // assignedUserId: '8KbnhNZk8syVO4HDxvUJ',
+         // address: 'Zoom',
+         // ignoreDateRange: false,
+         // toNotify: false
+      }
+
+      const url = 'http://localhost:3000/createAppointment'; // Replace with your server URL
+      const options = {
+         method: 'POST',
+         headers: {
+            'Content-Type': 'application/json',
+         },
+         body: JSON.stringify(data),
+      };
+
+      fetch(url, options)
+         .then((response) => response.json())
+         .then((data) => console.log(data))
+         .catch((error) => console.error('Error:', error));
+
+   }
+
 
 
 
@@ -111,14 +172,20 @@ const MainSection = () => {
    return (
       <LocalizationProvider dateAdapter={AdapterMoment}>
          <div className={`w-[80%] flerrrx-[40rem] p-10 ${styles['box-shadow']}`}>
-            <div className='flex'>
+            <div className='flex justify-between'>
                <div>
                   <h1 className='mb-3'>Set Date Available</h1>
                   <DatePicker localeText={{ clockLabelText: () => '' }} disablePast label="" className='flex-1' value={date} onChange={(date: any, id) => handleDateOrTimeChange(date, 'date', id)} name={'date'} />
                </div>
-               <div onClick={() => handleGetAccessToken()}>
-                  Get Access Token Now
-               </div>
+               {/* <div onClick={() => handleGetAccessToken()}>
+               </div> */}
+               <a className={`${styles.accessTknBtn}`} href='https://marketplace.gohighlevel.com/oauth/chooselocation?response_type=code&redirect_uri=http://localhost:8080/api/v1/auth/redirectHere&client_id=66023b6f76979edf38194d72-lu7t76eg&scope=calendars.readonly calendars.write calendars/events.readonly calendars/events.write contacts.readonly contacts.write' target='_blank'>
+                  Connect to GHL Account
+               </a>
+
+               {/* <div onClick={handleCreateContact}>
+                  Click
+               </div> */}
             </div>
 
             <div className='flex justify-between mt-10 mb-4'>

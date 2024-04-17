@@ -5,3 +5,12 @@
 .box-shadow {
    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Adjust values as needed */
 }
+
+.accessTknBtn {
+   background-color: #b6e2ea;
+   display: inline !important;
+   height: fit-content;
+   padding: 1rem;
+   border-radius: 2rem;
+   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+}

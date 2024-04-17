@@ -82,16 +82,17 @@ export default function CommonlyUsedComponents() {
    // }
 
    const handleSchedule = async () => {
+      let name = user.firstName + ' ' + user.lastName
       setLoading(true);
 
       // Assuming your API endpoint is '/api/schedule'
 
-      // const apiEndpoint = 'http://localhost:8080/api/v1/calender/createSchedule';
-      const apiEndpoint = 'https://alert-trench-coat-foal.cyclic.app/api/v1/calender/createSchedule';
+      const apiEndpoint = 'http://localhost:8080/api/v1/calender/createSchedule';
+      // const apiEndpoint = 'https://alert-trench-coat-foal.cyclic.app/api/v1/calender/createSchedule';
 
       try {
          // Make a POST request to the API with the sessionData
-         const response = await axios.post(apiEndpoint, { ...user, dogBreed:breed, session:sessionData });
+         const response = await axios.post(apiEndpoint, { ...user, name, dogBreed:breed, session:sessionData });
 
          // Check if the request was successful (status code 2xx)
          if (response.status === 200) {

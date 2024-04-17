@@ -114,6 +114,7 @@ export default function CommonlyUsedComponents() {
    // }
 
    const handleSchedule = async () => {
+      let name = user.firstName + ' ' + user.lastName
       setLoading(true);
 
       // Assuming your API endpoint is '/api/schedule'
@@ -147,7 +148,7 @@ export default function CommonlyUsedComponents() {
 
 
          // Make a POST request to the API with the sessionData
-         const response = await axios.post(apiEndpoint, { ...user, dogBreed: breed, session: sessionData });
+         const response = await axios.post(apiEndpoint, { ...user, name, "locationId": "JnzQAd6IWawdFzuBDK0q", dogBreed: breed, session: sessionData });
 
          // Check if the request was successful (status code 2xx)
          if (response.status === 200) {
@@ -223,11 +224,11 @@ export default function CommonlyUsedComponents() {
             ? moment(value).format('ddd. MMMM Do, YYYY')
             : moment(value).format('HH:mm a');
 
-      setSessionState((prevState) => ({ ...prevState, [field]: formattedValue }));
+      setSessionState((prevState) => ({ ...prevState, [field]: value }));
 
       if (sessionData[id]) {
          const updatedSessionData = sessionData.map((session: any, index: any) =>
-            index === id ? { ...session, [field]: formattedValue } : session
+            index === id ? { ...session, [field]: value } : session
          );
          setSessionData(updatedSessionData);
       }
